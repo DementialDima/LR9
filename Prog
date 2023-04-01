@@ -1,0 +1,59 @@
+public class CurrencyConverter
+{
+    private double exchangeRate;
+
+    public CurrencyConverter(double exchangeRate)
+    {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public double Convert(double amountInUAH)
+    {
+        return amountInUAH / exchangeRate;
+    }
+}
+
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        double exchangeRate = 26.5; // курс обміну
+        double amountInUAH = 1000; // кількість гривень
+
+        CurrencyConverter converter = new CurrencyConverter(exchangeRate);
+        double amountInUSD = converter.Convert(amountInUAH);
+
+        Console.WriteLine($"{amountInUAH} UAH is {amountInUSD} USD");
+    }
+}
+
+
+
+
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace CurrencyConverterTests
+{
+    [TestClass]
+    public class CurrencyConverterTests
+    {
+        [TestMethod]
+        public void Convert_1000UAHWithExchangeRate26_5_Returns37_74USD()
+        {
+            // Arrange
+            double exchangeRate = 26.5;
+            double amountInUAH = 1000;
+            double expectedAmountInUSD = 37.74;
+
+            CurrencyConverter converter = new CurrencyConverter(exchangeRate);
+
+            // Act
+            double actualAmountInUSD = converter.Convert(amountInUAH);
+
+            // Assert
+            Assert.AreEqual(expectedAmountInUSD, actualAmountInUSD, 0.01);
+        }
+    }
+}
